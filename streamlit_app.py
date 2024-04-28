@@ -86,5 +86,5 @@ gr.ChatInterface(
     fn=generate,
     chatbot=gr.Chatbot(show_label=False, show_share_button=False, show_copy_button=True, likeable=True, layout="panel"),
     additional_inputs=additional_inputs,
-    title=""Cyber Jarvis"""
+    title=""Cyber Jarvis""
 ).launch(show_api=False)
