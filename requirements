@@ -2,4 +2,4 @@ pandas
 plotly
 streamlit
 InferenceClient
-huggingface_hub
+huggingface-hub
