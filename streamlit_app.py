@@ -1,7 +1,7 @@
 import streamlit as st
 from huggingface_hub import InferenceClient
 
-client = InferenceClient("basakerdogan/cyber-jarvis-llama")
+client = InferenceClient("basakerdogan/cyber-jarvis-llama", token = "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")
 
 def format_prompt(message, history):
     prompt = "<s>"
