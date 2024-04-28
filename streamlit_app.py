@@ -1,18 +1,15 @@
+import streamlit as st
 from huggingface_hub import InferenceClient
-import gradio as gr
 
-client = InferenceClient(
-    "basakerdogan/cyber-jarvis-llama"
-)
-
+client = InferenceClient("basakerdogan/cyber-jarvis-llama")
 
 def format_prompt(message, history):
-  prompt = "<s>"
-  for user_prompt, bot_response in history:
-    prompt += f"[INST] {user_prompt} [/INST]"
-    prompt += f" {bot_response}</s> "
-  prompt += f"[INST] {message} [/INST]"
-  return prompt
+    prompt = "<s>"
+    for user_prompt, bot_response in history:
+        prompt += f"[INST] {user_prompt} [/INST]"
+        prompt += f" {bot_response}</s> "
+    prompt += f"[INST] {message} [/INST]"
+    return prompt
 
 def generate(
     prompt, history, temperature=0.9, max_new_tokens=256, top_p=0.95, repetition_penalty=1.0,
@@ -41,50 +38,19 @@ def generate(
         yield output
     return output
 
+# Streamlit interface setup
+st.title("Cyber Jarvis")
 
-additional_inputs=[
-    gr.Slider(
-        label="Temperature",
-        value=0.9,
-        minimum=0.0,
-        maximum=1.0,
-        step=0.05,
-        interactive=True,
-        info="Higher values produce more diverse outputs",
-    ),
-    gr.Slider(
-        label="Max new tokens",
-        value=256,
-        minimum=0,
-        maximum=1048,
-        step=64,
-        interactive=True,
-        info="The maximum numbers of new tokens",
-    ),
-    gr.Slider(
-        label="Top-p (nucleus sampling)",
-        value=0.90,
-        minimum=0.0,
-        maximum=1,
-        step=0.05,
-        interactive=True,
-        info="Higher values sample more low-probability tokens",
-    ),
-    gr.Slider(
-        label="Repetition penalty",
-        value=1.2,
-        minimum=1.0,
-        maximum=2.0,
-        step=0.05,
-        interactive=True,
-        info="Penalize repeated tokens",
-    )
-]
+prompt = st.text_area("Write your message here", height=200)
+history = []
 
+temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, step=0.05, value=0.9)
+max_new_tokens = st.slider("Max new tokens", min_value=0, max_value=1048, step=64, value=256)
+top_p = st.slider("Top-p (nucleus sampling)", min_value=0.0, max_value=1.0, step=0.05, value=0.90)
+repetition_penalty = st.slider("Repetition penalty", min_value=1.0, max_value=2.0, step=0.05, value=1.2)
 
-gr.ChatInterface(
-    fn=generate,
-    chatbot=gr.Chatbot(show_label=False, show_share_button=False, show_copy_button=True, likeable=True, layout="panel"),
-    additional_inputs=additional_inputs,
-    title="""Cyber Jarvis"""
-).launch(show_api=False)
+output = ""
+if st.button("Send"):
+    for response in generate(prompt, history, temperature, max_new_tokens, top_p, repetition_penalty):
+        output = response
+    st.write(output)
