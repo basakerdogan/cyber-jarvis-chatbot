@@ -1,3 +1,2 @@
-InferenceClient
 huggingface-hub
 streamlit
