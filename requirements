@@ -3,3 +3,4 @@ plotly
 streamlit
 InferenceClient
 huggingface-hub
+huggingface_hub
