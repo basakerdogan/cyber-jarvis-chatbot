@@ -1,7 +1,20 @@
 import streamlit as st
 from huggingface_hub import InferenceClient
 
-client = InferenceClient("basakerdogan/Cyber-Jarvis", token = "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")
+import requests
+
+API_URL = "https://sm7x76tjtop3ek5q.us-east-1.aws.endpoints.huggingface.cloud"
+headers = {
+	"Accept" : "application/json",
+	"Authorization": "Bearer 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",
+	"Content-Type": "application/json"
+}
+
+def query(payload):
+	response = requests.post(API_URL, headers=headers, json=payload)
+	return response.json()
+
+
 
 def format_prompt(message, history):
     prompt = "<s>"
@@ -30,13 +43,16 @@ def generate(
 
     formatted_prompt = format_prompt(prompt, history)
 
-    stream = client.text_generation(formatted_prompt, **generate_kwargs, stream=True, details=True, return_full_text=False)
-    output = ""
+    #stream = client.text_generation(formatted_prompt, **generate_kwargs, stream=True, details=True, return_full_text=False)
+    #output = ""
+    output = query({
+	"inputs": "Whats DDOS attack explain ",
+	"parameters": {"temperature":temperature,"max_new_tokens":max_new_tokens, "top_p": top_p, "repetition_penalty":repetition_penalty }})
 
-    for response in stream:
-        output += response.token.text
-        yield output
-    return output
+    #for response in stream:
+     #   output += response.token.text
+      #  yield output
+    return output[0]["generated_text"]
 
 # Streamlit interface setup
 st.title("Cyber Jarvis")
