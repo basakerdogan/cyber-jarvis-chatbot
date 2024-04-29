@@ -69,11 +69,11 @@ repetition_penalty = st.slider("Repetition penalty", min_value=1.0, max_value=2.
 output = ""
 if st.button("Send"):
    if prompt=="":
-	st.write("Please ask something")
+   	st.write("Please ask something")
    else:
 	for response in generate(prompt, history, temperature, max_new_tokens, top_p, repetition_penalty):
-    	output = response["generated_text"]
-    	st.write(output)
+            output = response["generated_text"]
+    	    st.write(output)
 
 	   
   
