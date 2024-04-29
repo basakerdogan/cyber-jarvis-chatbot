@@ -72,8 +72,8 @@ if st.button("Send"):
         st.write("Please ask something")
     else:
         for response in generate(prompt, history, temperature, max_new_tokens, top_p, repetition_penalty):
-	    output = response["generated_text"]
-    	    st.write(output)
+            output = response["generated_text"]
+            st.write(output)
 
 	   
   
