@@ -55,7 +55,7 @@ def generate(
     return output
 
 # Streamlit interface setup
-st.image('https://th.bing.com/th/id/OIG4.EV_F4G1xQ_Xa32BENOOg?pid=ImgGn', caption='')
+st.image('https://th.bing.com/th/id/OIG4.EV_F4G1xQ_Xa32BENOOg?pid=ImgGn', caption='',width=25, height=30)
 st.title("Cyber Jarvis")
 
 prompt = st.text_area("Write your message here", height=200, placeholder= "What is the importance of creating a strong password, and what methods do you use to create a secure password?")
