@@ -46,7 +46,7 @@ def generate(
     #stream = client.text_generation(formatted_prompt, **generate_kwargs, stream=True, details=True, return_full_text=False)
     #output = ""
     output = query({
-	"inputs": "Whats DDOS attack explain ",
+	"inputs": prompt,
 	"parameters": {"temperature":temperature,"max_new_tokens":max_new_tokens, "top_p": top_p, "repetition_penalty":repetition_penalty }})
 
     #for response in stream:
