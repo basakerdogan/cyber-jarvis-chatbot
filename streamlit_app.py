@@ -55,6 +55,7 @@ def generate(
     return output
 
 # Streamlit interface setup
+st.image('https://th.bing.com/th/id/OIG4.EV_F4G1xQ_Xa32BENOOg?pid=ImgGn', caption='')
 st.title("Cyber Jarvis")
 
 prompt = st.text_area("Write your message here", height=200, placeholder= "What is the importance of creating a strong password, and what methods do you use to create a secure password?")
@@ -67,6 +68,12 @@ repetition_penalty = st.slider("Repetition penalty", min_value=1.0, max_value=2.
 
 output = ""
 if st.button("Send"):
-   for response in generate(prompt, history, temperature, max_new_tokens, top_p, repetition_penalty):
+   if prompt=="":
+	st.write("Please ask something")
+   else:
+	for response in generate(prompt, history, temperature, max_new_tokens, top_p, repetition_penalty):
     	output = response["generated_text"]
     	st.write(output)
+
+	   
+  
