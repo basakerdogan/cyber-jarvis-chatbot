@@ -57,7 +57,7 @@ def generate(
 # Streamlit interface setup
 st.title("Cyber Jarvis")
 
-prompt = st.text_area("Write your message here", height=200)
+prompt = st.text_area("Write your message here", height=200, placeholder= "What is the importance of creating a strong password, and what methods do you use to create a secure password?")
 history = []
 
 temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, step=0.05, value=0.9)
