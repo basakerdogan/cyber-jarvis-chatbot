@@ -6,7 +6,7 @@ import requests
 API_URL = "https://sm7x76tjtop3ek5q.us-east-1.aws.endpoints.huggingface.cloud"
 headers = {
 	"Accept" : "application/json",
-	"Authorization": "Bearer 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",
+	"Authorization": "Bearer [your_api_key]",
 	"Content-Type": "application/json"
 }
 
